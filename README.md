@@ -5,20 +5,25 @@
 
 # Soenneker.AutoFaker.Overrides.Requests.Entity
 
-An AutoFaker (AutoBogus) override for the EntityRequest object.
+An AutoFaker override that assigns valid identifiers to `EntityRequest` fixtures.
 
-## Install
+## Installation
 
 ```bash
 dotnet add package Soenneker.AutoFaker.Overrides.Requests.Entity
 ```
 
-## What you get
+## Usage
 
-- `EntityRequestOverride` — An AutoFaker (AutoBogus) override for the EntityRequest object.
+```csharp
+using Soenneker.AutoFaker.Overrides.Requests.Entity;
+using Soenneker.Requests.Entity;
+using Soenneker.Utils.AutoBogus;
 
-## API at a glance
+var autoFaker = new AutoFaker();
+autoFaker.Config.Overrides = [new EntityRequestOverride()];
 
-| API | What it does | Result / important behavior |
-| --- | --- | --- |
-| `EntityRequestOverride.CanOverride(context)` | Executes the can override operation. | A value indicating whether the operation succeeded. |
+EntityRequest request = autoFaker.Generate<EntityRequest>();
+```
+
+The override applies to `EntityRequest` and derived request types and sets `Id` to a GUID string. Because the contract treats `Id` as optional for create operations, explicitly set it to `null` after generation when testing creation semantics.

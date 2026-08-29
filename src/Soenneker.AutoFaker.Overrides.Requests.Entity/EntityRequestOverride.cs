@@ -16,7 +16,7 @@ public class EntityRequestOverride : AutoFakerOverride<EntityRequest>
     /// <returns>A value indicating whether the operation succeeded.</returns>
     public override bool CanOverride(AutoFakerContext context)
     {
-        return context.GenerateType.IsSubclassOf(typeof(EntityRequest));
+        return typeof(EntityRequest).IsAssignableFrom(context.GenerateType);
     }
 
     /// <summary>
